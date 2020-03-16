@@ -1,0 +1,201 @@
+<h1>Interpolution</h1>
+<p ngClass="one">Welcome to {{title}}</p>
+<h2>Employee Name : {{empfirstname + " " + emplastname}}</h2>
+
+
+<h2>using NgIf condition</h2>
+<input type="radio" name="radio1" (click)="changevalue(true)">True
+<input type="radio" name="radio1" (click)="changevalue(false)">False
+
+<div *ngIf="isvalid">
+  This is a valid data
+</div>
+
+<div *ngIf="!isvalid">
+  This is not a valid data
+</div>
+
+<h2>using NgIf and Else condition</h2>
+<input type="radio" name="radio1" (click)="changewrite(true)">write
+<input type="radio" name="radio1" (click)="changewrite(false)">wrong
+
+<div *ngIf="iswrite; else elseblock">
+  This is a write data
+</div>
+<ng-template #elseblock>
+<div>
+  This is not a write  data
+</div>
+</ng-template>
+
+
+<!-- <h2>using NgIf/Else and Then condition</h2>
+<input type="radio" name="radio1" (click)="checkvalue(true)">True
+<input type="radio" name="radio1" (click)="checkvalue(false)">False
+
+<div *ngIf="checkvalue; then thenblock; else elseblock">
+  <ng-template #thenblock>
+  <div>This is a valid data</div>
+</ng-template>
+</div>
+
+<ng-template #elseblock>
+  <div>This is not a valid data</div>
+</ng-template> -->
+
+
+<h2>Using ng Switch</h2>
+<select (change)="setvalue($event)">
+  <option value="">--select--</option>
+  <option value="one">One</option>
+  <option value="two">Two</option>
+  <option value="three">Three</option>
+  <option value="another">Another</option>
+</select>
+<div [ngSwitch]="choose">
+  <h3 *ngSwitchCase="'one'">First</h3>
+  <h3 *ngSwitchCase="'two'">Second</h3>
+  <h3 *ngSwitchCase="'three'">Third</h3>
+  <h3 *ngSwitchDefault>Default</h3>
+</div>
+
+<h2>Using ngFor</h2>
+<ul>
+  <li *ngFor="let student of Students ; let i=index ; let f=first; let l = last; let ev=even; let od=odd">
+  {{i+1}} - {{student.name}} - {{f}} - {{l}} - {{ev}} - {{od}}
+  </li>
+</ul>
+
+<h2>Track by example</h2>
+<table border="1px solid">
+  <tr *ngFor='let e of employee; let i=index;trackBy:trackbyemployeeid'>
+    <td>{{i+1}}</td>
+    <td>{{e.employeeid}}</td>
+    <td>{{e.name}}</td>
+    <td>{{e.gender}}</td>
+    <td>{{e.age}}</td>
+    <td>{{e.department}}</td>
+  </tr>
+</table>
+<br />
+<button mat-raised-button (click)="getmoreemployee()">Get more employee</button>
+<!-- <button class="btn btn-primary">submit</button> -->
+<h2>Grouping with ngFor</h2>
+<ul *ngFor="let group of Countrydetails">
+  <li>{{group.country}}</li>
+  <ul>
+    <li *ngFor="let person of group.people">
+      {{person.name}}
+    </li>
+  </ul>
+</ul>
+
+<h2>NgStyle Example</h2>
+<ul *ngFor="let person of people">
+  <li [ngStyle]="{'color': getcolor(person.country)}">
+    {{person.name}} - ({{person.Country}})
+  </li>
+</ul>
+
+<h2>Attribute binding</h2>
+<table border="1px solid">
+<tr>
+  <td colspan="3">student Details</td>
+</tr>
+<tr>
+  <td>ID</td>
+  <td>Name</td>
+  <td>Class</td>
+</tr>
+<tr>
+  <td>01</td>
+  <td>Sameer Rehman</td>
+  <td>graduate</td>
+</tr>
+</table>
+
+<h2>Dynamic Attribute</h2>
+<table [attr.border]="bdr" height="200" width="400">
+  <tr>
+    <td [attr.colspan]="cols">student Details</td>
+  </tr>
+  <tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>01</td>
+    <td>Safi Rehman</td>
+    <td>graduate</td>
+  </tr>
+  </table>
+
+
+<h2>Event Binding</h2>
+<!-- <button (click)='showdata()'>Click Me</button> -->
+
+
+
+<h2>Two Way Binding</h2>
+<h3>Without ngmodel Two Way data binding</h3>
+Enter Your Name: <input [value]='Data' (input)='Data=$event.target.value' > <br /><br />
+Your Name: {{Data}}
+<br /><br />
+<h3>with ngmodel Two Way data binding</h3>
+<input [(ngModel)]='data1'> <br /><br />
+Enter value : {{data1}}
+
+
+<h2>Pipes</h2>
+<p>changing lowercase to uppercase</p>
+<table border="1">
+  <tr>
+    <th>Emp Code</th>
+    <th>Emp Name</th>
+    <th>Emp D.O.B</th>
+  </tr>
+  <tr *ngFor="let employ of employees">
+  <td>{{employ.code}}</td>
+  <td>{{employ.name | uppercase}}</td>
+  <td>{{employ.dob}}</td>
+  </tr>
+</table>
+
+<h2>Pipes with Parameter</h2>
+<div>
+  {{dob}}<br />
+  Medium: {{dob|date:"medium"}}<br />
+  Specific formate : {{dob|date:"dd/mm/yy"}}<br />
+  medium time : {{dob|date:"mediumTime"}}<br />
+  {{year}}<br />
+  salary : {{salary|currency:"USD":true}}
+</div>
+
+<h2>Multiple Pipes</h2>
+<h4>{{name|uppercase}}-{{position|lowercase}}</h4>
+<h3>{{work|titlecase}}</h3>
+<h2>slice Example</h2>
+<h3>{{work|slice:5}}</h3>
+<h3>{{work|slice:5:9}}</h3>
+
+<h2>percent pipe</h2>
+<h3>{{mynumber}}</h3><br />
+<h3>{{mynumber|percent}}</h3><br />
+<h3>{{mynumber|percent:'2.4-8'}}</h3>
+<h3>{{mynumber|currency:'pkr'}}</h3>
+<h3>{{mynumber|currency:'USD'}}</h3>
+<h3>{{mynumber|currency:'EUR' : 'code'}}</h3>
+
+<h2>Static Router Link Example</h2>
+<a [routerLink]="['/student']">Student</a>...........
+<!-- <a [routerLink]="['/studentdetails']">studentdetails</a><br /> -->
+         <!-- page not found -->
+<a [routerLink]="['/parentdetails']">parentdetails</a><br />
+<h2>Dynamic Routing</h2>
+<!-- <button (click)="student()">Show Student</button> -->
+
+<!-- <h2>{{text}}</h2> -->
+<div>
+<router-outlet></router-outlet>
+</div>
